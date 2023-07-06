@@ -13,8 +13,8 @@ public class CacheConfig {
     @Bean
     public Caffeine<Object, Object> caffeineConfig() {
         return Caffeine.newBuilder()
-                .expireAfterWrite(15, TimeUnit.MINUTES)
-                .initialCapacity(10);
+            .expireAfterWrite(15, TimeUnit.MINUTES)
+            .initialCapacity(10);
     }
 
     @Bean

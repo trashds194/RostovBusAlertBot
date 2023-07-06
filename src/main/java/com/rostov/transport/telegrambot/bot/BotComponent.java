@@ -78,25 +78,25 @@ public class BotComponent extends TelegramLongPollingBot {
                 log.info("MessageId: {} \n MessageText: {}", message.getMessageId(), messageText);
                 if (messageText.equals(START_COMMAND)) {
                     userService.createUser(
-                            User.builder()
-                                    .tgChatId(message.getChatId())
-                                    .userName(message.getChat().getFirstName())
-                                    .userNick(message.getChat().getUserName())
-                                    .build()
+                        User.builder()
+                            .tgChatId(message.getChatId())
+                            .userName(message.getChat().getFirstName())
+                            .userNick(message.getChat().getUserName())
+                            .build()
                     );
 
                     sendMessage(generateSendMessage(
-                            message.getChatId(),
-                            String.format(HELLO_MSG, message.getChat().getFirstName()))
+                        message.getChatId(),
+                        String.format(HELLO_MSG, message.getChat().getFirstName()))
                     );
                 }
                 if (messageText.equals(NEW_ALERT_COMMAND)) {
                     var sendMessage = generateSendMessage(message.getChatId(), NEW_ALERT_START_MSG);
                     setForceReplyToMessage(sendMessage);
                     alertCache.put(message.getChatId(), Alert.builder()
-                            .id(UUID.randomUUID())
-                            .userId(userService.getUserByTgChatId(message.getChatId()).getId())
-                            .build());
+                        .id(UUID.randomUUID())
+                        .userId(userService.getUserByTgChatId(message.getChatId()).getId())
+                        .build());
                     System.err.println(alertCache.get(message.getChatId(), Alert.class));
                     sendMessage(sendMessage);
                 }
@@ -110,31 +110,31 @@ public class BotComponent extends TelegramLongPollingBot {
                     var reply = message.getReplyToMessage();
                     if (reply.getText().equals(NEW_ALERT_CHOOSE_BUS_MSG)) {
                         alertCache.put(message.getChatId(), alertCache.get(message.getChatId(), Alert.class).toBuilder()
-                                .buses(List.of(message.getText()))
-                                .build());
+                            .buses(List.of(message.getText()))
+                            .build());
                         var sendMessage = generateSendMessage(message.getChatId(), NEW_ALERT_CHOOSE_DAY_MSG);
                         setForceReplyToMessage(sendMessage);
                         sendMessage(sendMessage);
                     } else if (reply.getText().equals(NEW_ALERT_CHOOSE_DAY_MSG)) {
                         alertCache.put(message.getChatId(), alertCache.get(message.getChatId(), Alert.class).toBuilder()
-                                .days(List.of(Integer.valueOf(message.getText())))
-                                .build());
+                            .days(List.of(Integer.valueOf(message.getText())))
+                            .build());
                         var sendMessage = generateSendMessage(message.getChatId(), NEW_ALERT_START_TIME_MSG);
                         setForceReplyToMessage(sendMessage);
                         sendMessage(sendMessage);
                     } else if (reply.getText().equals(NEW_ALERT_START_TIME_MSG)) {
                         alertCache.put(message.getChatId(), alertCache.get(message.getChatId(), Alert.class).toBuilder()
-                                .startTime(LocalTime.parse(message.getText(), DateTimeFormatter.ISO_TIME)
-                                        .atOffset(ZoneOffset.of("+03:00")))
-                                .build());
+                            .startTime(LocalTime.parse(message.getText(), DateTimeFormatter.ISO_TIME)
+                                .atOffset(ZoneOffset.of("+03:00")))
+                            .build());
                         var sendMessage = generateSendMessage(message.getChatId(), NEW_ALERT_END_TIME_MSG);
                         setForceReplyToMessage(sendMessage);
                         sendMessage(sendMessage);
                     } else if (reply.getText().equals(NEW_ALERT_END_TIME_MSG)) {
                         alertCache.put(message.getChatId(), alertCache.get(message.getChatId(), Alert.class).toBuilder()
-                                .endTime(LocalTime.parse(message.getText(), DateTimeFormatter.ISO_TIME)
-                                        .atOffset(ZoneOffset.of("+03:00")))
-                                .build());
+                            .endTime(LocalTime.parse(message.getText(), DateTimeFormatter.ISO_TIME)
+                                .atOffset(ZoneOffset.of("+03:00")))
+                            .build());
                         var sendMessage = generateSendMessage(message.getChatId(), "The end");
                         sendMessage(sendMessage);
 
@@ -147,9 +147,9 @@ public class BotComponent extends TelegramLongPollingBot {
                     if (reply.getText().equals(NEW_ALERT_START_MSG)) {
                         var location = message.getLocation();
                         alertCache.put(message.getChatId(), alertCache.get(message.getChatId(), Alert.class).toBuilder()
-                                .latitude(location.getLatitude())
-                                .longitude(location.getLongitude())
-                                .build());
+                            .latitude(location.getLatitude())
+                            .longitude(location.getLongitude())
+                            .build());
                         System.err.println(alertCache.get(message.getChatId(), Alert.class));
                         var sendMessage = generateSendMessage(message.getChatId(), NEW_ALERT_CHOOSE_BUS_MSG);
                         setForceReplyToMessage(sendMessage);
@@ -212,15 +212,15 @@ public class BotComponent extends TelegramLongPollingBot {
         log.info("Sending message to {}", sendMessage.getChatId());
         try {
             return executeAsync(sendMessage)
-                    .handle((message, throwable) -> {
-                        if (Objects.nonNull(throwable)) {
-                            log.error("Send message to {} failure with error {}",
-                                    sendMessage.getChatId(), throwable.getMessage());
-                        } else {
-                            log.info("Message successful sent to {}", sendMessage.getChatId());
-                        }
-                        return null;
-                    });
+                .handle((message, throwable) -> {
+                    if (Objects.nonNull(throwable)) {
+                        log.error("Send message to {} failure with error {}",
+                            sendMessage.getChatId(), throwable.getMessage());
+                    } else {
+                        log.info("Message successful sent to {}", sendMessage.getChatId());
+                    }
+                    return null;
+                });
         } catch (TelegramApiException ex) {
             return CompletableFuture.failedFuture(ex);
         }
@@ -228,11 +228,11 @@ public class BotComponent extends TelegramLongPollingBot {
 
     private SendMessage generateSendMessage(long chatId, String text) {
         return SendMessage.builder()
-                .chatId(chatId)
-                .parseMode(HTML)
-                .disableWebPagePreview(true)
-                .text(text)
-                .build();
+            .chatId(chatId)
+            .parseMode(HTML)
+            .disableWebPagePreview(true)
+            .text(text)
+            .build();
     }
 
     private InlineKeyboardButton generateInlineButton(String buttonText, String buttonCallbackData) {

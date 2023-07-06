@@ -21,25 +21,25 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public void insert(User user) {
         dslContext.insertInto(T_USER_INFO)
-                .set(T_USER_INFO.ID, UUID.randomUUID())
-                .set(T_USER_INFO.TG_CHAT_ID, user.getTgChatId())
-                .set(T_USER_INFO.USER_NAME, user.getUserName())
-                .set(T_USER_INFO.USER_NICK, user.getUserNick())
-                .set(T_USER_INFO.CREATED_DATE, OffsetDateTime.now(ZoneOffset.of("+03:00")))
-                .execute();
+            .set(T_USER_INFO.ID, UUID.randomUUID())
+            .set(T_USER_INFO.TG_CHAT_ID, user.getTgChatId())
+            .set(T_USER_INFO.USER_NAME, user.getUserName())
+            .set(T_USER_INFO.USER_NICK, user.getUserNick())
+            .set(T_USER_INFO.CREATED_DATE, OffsetDateTime.now(ZoneOffset.of("+03:00")))
+            .execute();
     }
 
     @Override
     public User findUserById(UUID id) {
         return dslContext.selectFrom(T_USER_INFO)
-                .where(T_USER_INFO.ID.eq(id))
-                .fetchOneInto(User.class);
+            .where(T_USER_INFO.ID.eq(id))
+            .fetchOneInto(User.class);
     }
 
     @Override
     public User findUserByTgChatId(long tgChatId) {
         return dslContext.selectFrom(T_USER_INFO)
-                .where(T_USER_INFO.TG_CHAT_ID.eq(tgChatId))
-                .fetchOneInto(User.class);
+            .where(T_USER_INFO.TG_CHAT_ID.eq(tgChatId))
+            .fetchOneInto(User.class);
     }
 }
