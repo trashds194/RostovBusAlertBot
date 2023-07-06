@@ -1,0 +1,40 @@
+server:
+  port: 9595
+  servlet:
+    context-path: /bot
+    encoding:
+      charset: UTF-8
+    forward-headers-strategy: framework
+
+spring:
+  application:
+    name: rostov-transport-bot
+  datasource:
+    url: ${DATASOURCE_URL:jdbc:postgresql://localhost:5432/postgres}
+    username: ${DATASOURCE_USERNAME:postgres}
+    password: ${DATASOURCE_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+  liquibase:
+    change-log: classpath:master.yaml
+    enabled: true
+
+telegrambots:
+  bot-name: ${TELEGRAM_BOT_NAME:name}
+  bot-token: ${TELEGRAM_BOT_TOKEN:token}
+
+logging:
+  level:
+    root: INFO
+    com:
+      rostov:
+        transport:
+          telegrambot: INFO
+    org:
+      jooq:
+        tools:
+          LoggerListener: INFO
+        Constants: OFF
+
+

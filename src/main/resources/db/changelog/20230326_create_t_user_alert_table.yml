@@ -1,0 +1,36 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20230326_create_t_user_alert_table
+      author: dtrashchenko
+      changes:
+        - sql:
+            sql: "CREATE TABLE t_user_alert (
+                    id            UUID                      NOT NULL,
+                    user_id       UUID                      NOT NULL, 
+                    latitude      DOUBLE PRECISION          NOT NULL,
+                    longitude     DOUBLE PRECISION          NOT NULL,
+                    days          INTEGER[]                 NOT NULL,
+                    buses         VARCHAR[]                 NOT NULL,
+                    start_date    TIME WITH TIME ZONE       NOT NULL,
+                    end_date      TIME WITH TIME ZONE       NOT NULL,
+                    created_date  TIMESTAMP WITH TIME ZONE  NOT NULL,
+                    PRIMARY KEY (id, user_id)
+                  )"
+
+  - changeSet:
+      id: 20230326_create_t_user_alert_table_comment
+      author: dtrashchenko
+      runOnChange: true
+      changes:
+        - sql:
+            sql: "COMMENT ON TABLE  t_user_alert              IS 'Таблица с информацией об уведомлениях пользователя';
+                  COMMENT ON COLUMN t_user_alert.id           IS 'ID записи';
+                  COMMENT ON COLUMN t_user_alert.user_id      IS 'ID пользователя';
+                  COMMENT ON COLUMN t_user_alert.latitude     IS 'Широта';
+                  COMMENT ON COLUMN t_user_alert.longitude    IS 'Долгота';
+                  COMMENT ON COLUMN t_user_alert.days         IS 'Массив номеров дней недели, в которые срабатывает уведомления (массив чисел)';
+                  COMMENT ON COLUMN t_user_alert.buses        IS 'Массив номеров автобусов, на которые срабатывает уведомления (массив строк)';
+                  COMMENT ON COLUMN t_user_alert.start_date   IS 'Время начала срабатывания уведомления';
+                  COMMENT ON COLUMN t_user_alert.end_date     IS 'Время конца срабатывания уведомления';
+                  COMMENT ON COLUMN t_user_alert.created_date IS 'Дата и время создания уведомления';
+                  "
