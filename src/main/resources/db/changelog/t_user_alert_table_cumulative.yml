@@ -1,0 +1,3 @@
+databaseChangeLog:
+  - include:
+      file: db/sql/v1/20240723_create_t_user_alert_table.sql

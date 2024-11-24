@@ -1,0 +1,5 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/t_user_info_table_cumulative.yml
+  - include:
+      file: db/changelog/t_user_alert_table_cumulative.yml

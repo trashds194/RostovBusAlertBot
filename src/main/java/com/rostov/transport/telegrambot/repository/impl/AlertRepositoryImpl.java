@@ -1,19 +1,18 @@
 package com.rostov.transport.telegrambot.repository.impl;
 
+import static com.rostov.transport.telegrambot.contants.ApplicationConstants.DEFAULT_APP_ZONE_OFFSET;
+import static org.jooq.generated.Tables.T_USER_ALERT;
+import static org.jooq.impl.DSL.val;
+
 import com.rostov.transport.telegrambot.model.Alert;
 import com.rostov.transport.telegrambot.repository.AlertRepository;
+import java.time.OffsetDateTime;
+import java.util.List;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.jooq.DSLContext;
 import org.jooq.impl.DSL;
 import org.springframework.stereotype.Repository;
-
-import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
-import java.util.List;
-import java.util.UUID;
-
-import static org.jooq.generated.Tables.T_USER_ALERT;
-import static org.jooq.impl.DSL.val;
 
 @Repository
 @RequiredArgsConstructor
@@ -30,9 +29,11 @@ public class AlertRepositoryImpl implements AlertRepository {
             .set(T_USER_ALERT.LONGITUDE, alert.getLongitude())
             .set(T_USER_ALERT.DAYS, alert.getDays().toArray(new Integer[0]))
             .set(T_USER_ALERT.BUSES, alert.getBuses().toArray(new String[0]))
-            .set(T_USER_ALERT.START_DATE, alert.getStartTime().withOffsetSameLocal(ZoneOffset.of("+03:00")))
-            .set(T_USER_ALERT.END_DATE, alert.getEndTime().withOffsetSameLocal(ZoneOffset.of("+03:00")))
-            .set(T_USER_ALERT.CREATED_DATE, OffsetDateTime.now(ZoneOffset.of("+03:00")))
+                .set(T_USER_ALERT.START_DATE,
+                        alert.getStartTime().withOffsetSameLocal(DEFAULT_APP_ZONE_OFFSET))
+                .set(T_USER_ALERT.END_DATE,
+                        alert.getEndTime().withOffsetSameLocal(DEFAULT_APP_ZONE_OFFSET))
+                .set(T_USER_ALERT.CREATED_DATE, OffsetDateTime.now(DEFAULT_APP_ZONE_OFFSET))
             .execute();
     }
 

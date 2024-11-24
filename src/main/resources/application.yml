@@ -17,12 +17,15 @@ spring:
     hikari:
       maximum-pool-size: 10
   liquibase:
-    change-log: classpath:master.yaml
+    change-log: classpath:db/master.yaml
     enabled: true
 
-telegrambots:
-  bot-name: ${TELEGRAM_BOT_NAME:name}
-  bot-token: ${TELEGRAM_BOT_TOKEN:token}
+application:
+  bus-api:
+    url: ${BUS_API_URL:http://localhost:8080}
+  telegrambots:
+    bot-name: ${TELEGRAM_BOT_NAME:name}
+    bot-token: ${TELEGRAM_BOT_TOKEN:token}
 
 logging:
   level:

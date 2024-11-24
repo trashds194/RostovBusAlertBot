@@ -2,129 +2,8 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <artifactId>telegram-bot</artifactId>
-    <description>Rostov transport telegram bot project</description>
-    <groupId>com.rostov.transport</groupId>
-    <modelVersion>4.0.0</modelVersion>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>Rostov transport telegram bot project</name>
-
-    <parent>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <groupId>org.springframework.boot</groupId>
-        <relativePath/>
-        <version>3.0.4</version> <!-- lookup parent from repository -->
-    </parent>
-
-    <properties>
-        <java.version>19</java.version>
-        <maven.compiler.source>${java.version}</maven.compiler.source>
-        <maven.compiler.target>${java.version}</maven.compiler.target>
-
-        <caffeine.version>3.1.1</caffeine.version>
-        <jackson-core.version>2.14.2</jackson-core.version>
-        <jooq.version>3.18.1</jooq.version>
-        <liquibase-maven-plugin.version>4.2.0</liquibase-maven-plugin.version>
-        <lombok.version>1.18.26</lombok.version>
-        <lucene-spatial.version>8.4.1</lucene-spatial.version>
-        <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
-        <maven-surefire-plugin.version>3.0.0</maven-surefire-plugin.version>
-        <telegrambots.version>6.5.0</telegrambots.version>
-    </properties>
-
-    <dependencies>
-        <!--        Spring-->
-        <dependency>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-            <groupId>org.springframework.boot</groupId>
-        </dependency>
-        <dependency>
-            <artifactId>spring-boot-starter-jooq</artifactId>
-            <groupId>org.springframework.boot</groupId>
-        </dependency>
-        <dependency>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <groupId>org.springframework.boot</groupId>
-        </dependency>
-        <dependency>
-            <artifactId>spring-boot-devtools</artifactId>
-            <groupId>org.springframework.boot</groupId>
-            <optional>true</optional>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-            <groupId>org.springframework.boot</groupId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-cache</artifactId>
-        </dependency>
-
-        <!--        DB-->
-        <dependency>
-            <artifactId>liquibase-core</artifactId>
-            <groupId>org.liquibase</groupId>
-        </dependency>
-        <dependency>
-            <artifactId>jooq</artifactId>
-            <groupId>org.jooq</groupId>
-            <version>${jooq.version}</version>
-        </dependency>
-        <dependency>
-            <artifactId>postgresql</artifactId>
-            <groupId>org.postgresql</groupId>
-        </dependency>
-
-        <!--        Telegram-->
-        <dependency>
-            <artifactId>telegrambots</artifactId>
-            <groupId>org.telegram</groupId>
-            <version>${telegrambots.version}</version>
-        </dependency>
-        <dependency>
-            <artifactId>telegrambots-spring-boot-starter</artifactId>
-            <groupId>org.telegram</groupId>
-            <version>${telegrambots.version}</version>
-        </dependency>
-
-        <!--        Other-->
-        <dependency>
-            <artifactId>micrometer-registry-prometheus</artifactId>
-            <groupId>io.micrometer</groupId>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <artifactId>lombok</artifactId>
-            <groupId>org.projectlombok</groupId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <artifactId>jackson-core</artifactId>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <version>${jackson-core.version}</version>
-        </dependency>
-        <dependency>
-            <artifactId>lucene-spatial</artifactId>
-            <groupId>org.apache.lucene</groupId>
-            <version>${lucene-spatial.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.ben-manes.caffeine</groupId>
-            <artifactId>caffeine</artifactId>
-            <version>${caffeine.version}</version>
-        </dependency>
-
-        <!--        Test-->
-        <dependency>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <groupId>org.springframework.boot</groupId>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
-
-    <build>
+  <artifactId>telegram-telegramBot</artifactId>
+  <build>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -158,8 +37,8 @@
             <plugin>
                 <artifactId>liquibase-maven-plugin</artifactId>
                 <configuration>
-                    <changeLogFile>master.yaml</changeLogFile>
-                    <propertyFile>liquibase.properties</propertyFile>
+                  <changeLogFile>db/master.yaml</changeLogFile>
+                  <propertyFile>db/liquibase.properties</propertyFile>
                     <propertyFileWillOverride>true</propertyFileWillOverride>
                 </configuration>
                 <executions>
@@ -274,4 +153,132 @@
             </plugin>
         </plugins>
     </build>
+  <dependencies>
+    <!--        Spring-->
+    <dependency>
+      <artifactId>spring-boot-starter-actuator</artifactId>
+      <groupId>org.springframework.boot</groupId>
+    </dependency>
+    <dependency>
+      <artifactId>spring-boot-starter-jooq</artifactId>
+      <groupId>org.springframework.boot</groupId>
+    </dependency>
+    <dependency>
+      <artifactId>spring-boot-starter-web</artifactId>
+      <groupId>org.springframework.boot</groupId>
+    </dependency>
+    <dependency>
+      <artifactId>spring-boot-devtools</artifactId>
+      <groupId>org.springframework.boot</groupId>
+      <optional>true</optional>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <artifactId>spring-boot-configuration-processor</artifactId>
+      <groupId>org.springframework.boot</groupId>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <artifactId>spring-boot-starter-cache</artifactId>
+      <groupId>org.springframework.boot</groupId>
+    </dependency>
+
+    <!--        DB-->
+    <dependency>
+      <artifactId>liquibase-core</artifactId>
+      <groupId>org.liquibase</groupId>
+    </dependency>
+    <dependency>
+      <artifactId>jooq</artifactId>
+      <groupId>org.jooq</groupId>
+      <version>${jooq.version}</version>
+    </dependency>
+    <dependency>
+      <artifactId>postgresql</artifactId>
+      <groupId>org.postgresql</groupId>
+    </dependency>
+
+    <!--        Telegram-->
+    <dependency>
+      <artifactId>telegrambots-longpolling</artifactId>
+      <groupId>org.telegram</groupId>
+      <version>${telegrambots.version}</version>
+    </dependency>
+    <dependency>
+      <artifactId>telegrambots-client</artifactId>
+      <groupId>org.telegram</groupId>
+      <version>${telegrambots.version}</version>
+    </dependency>
+
+    <!--        Other-->
+    <dependency>
+      <artifactId>micrometer-registry-prometheus</artifactId>
+      <groupId>io.micrometer</groupId>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <artifactId>lombok</artifactId>
+      <groupId>org.projectlombok</groupId>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <artifactId>jackson-core</artifactId>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <version>${jackson-core.version}</version>
+    </dependency>
+    <dependency>
+      <artifactId>lucene-spatial</artifactId>
+      <groupId>org.apache.lucene</groupId>
+      <version>${lucene-spatial.version}</version>
+    </dependency>
+    <dependency>
+      <artifactId>caffeine</artifactId>
+      <groupId>com.github.ben-manes.caffeine</groupId>
+      <version>${caffeine.version}</version>
+    </dependency>
+    <dependency>
+      <artifactId>jakarta.validation-api</artifactId>
+      <groupId>jakarta.validation</groupId>
+      <version>${jakarta-validation-api.version}</version>
+    </dependency>
+
+
+    <!--        Test-->
+    <dependency>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <groupId>org.springframework.boot</groupId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+  <description>Rostov transport telegram telegramBot project</description>
+  <groupId>com.rostov.transport</groupId>
+  <modelVersion>4.0.0</modelVersion>
+
+  <name>Rostov transport telegram telegramBot project</name>
+
+  <parent>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <groupId>org.springframework.boot</groupId>
+    <relativePath/>
+    <version>3.4.0</version> <!-- lookup parent from repository -->
+  </parent>
+
+  <properties>
+    <caffeine.version>3.1.8</caffeine.version>
+    <jackson-core.version>2.18.1</jackson-core.version>
+    <jakarta-validation-api.version>3.1.0</jakarta-validation-api.version>
+
+    <java.version>21</java.version>
+    <jooq.version>3.19.15</jooq.version>
+    <liquibase-maven-plugin.version>4.30.0</liquibase-maven-plugin.version>
+    <lombok.version>1.18.36</lombok.version>
+    <lucene-spatial.version>8.4.1</lucene-spatial.version>
+    <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
+    <maven-surefire-plugin.version>3.5.2</maven-surefire-plugin.version>
+    <maven.compiler.source>${java.version}</maven.compiler.source>
+    <maven.compiler.target>${java.version}</maven.compiler.target>
+    <telegrambots.version>7.11.0</telegrambots.version>
+  </properties>
+
+  <version>0.0.1-SNAPSHOT</version>
 </project>

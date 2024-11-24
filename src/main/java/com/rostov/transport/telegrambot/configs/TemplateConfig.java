@@ -1,4 +1,4 @@
-package com.rostov.transport.telegrambot.config;
+package com.rostov.transport.telegrambot.configs;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

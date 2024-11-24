@@ -4,7 +4,8 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public final class BotCommandConstants {
-    public static final String START_COMMAND = "/start";
-    public static final String NEW_ALERT_COMMAND = "/new_alert";
+public final class CacheConstants {
+
+    // cache
+    public static final String ALERT_CACHE_NAME = "alert";
 }
